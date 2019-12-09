@@ -2,6 +2,8 @@
 #define SORTING_H_INCLUDED
 #include <fstream>
 #include <iostream>
+#include <vector>
+
 using namespace std;
 
 template <class T>
@@ -12,26 +14,23 @@ void swaps(T &x,T &y){
 }
 
 template <class T>
-int partition (T arr[], int low, int high)
-{
-    T pivot = arr[high];    // pivot
+int partition (T arr[], int low, int high){
+    T pivot = arr[high];
     int i = low - 1;
-    for (int j = low; j <= high - 1; j++)
-    {
-        if (arr[j] <= pivot)
-        {
-            i++;    // increment index of smaller element
+    for (int j = low; j <= high - 1; j++){
+        if (arr[j] <= pivot){
+            i++;
             swaps(arr[i], arr[j]);
         }
     }
     swaps(arr[i+1], arr[high]);
+
     return i + 1;
 }
+
 template <class T>
-void quickSort(T arr[], int low, int high)
-{
-    if (low < high)
-    {
+void quickSort(T arr[], int low, int high){
+    if (low < high){
         int pivot = partition(arr, low, high);
         quickSort(arr, low, pivot - 1);
         quickSort(arr, pivot + 1, high);
@@ -79,7 +78,6 @@ void setArr(ifstream &file, T arr1[], T arr2[], T arr3[], int s){
         }
 
         lineCount++;
-        //cout << lineCount << endl;
         getline(file, line);
 
         comma = 0;
@@ -101,6 +99,19 @@ void setArr(ifstream &file, T arr1[], T arr2[], T arr3[], int s){
 
 }
 
+template<class T>
+T getAvg(vector<T> nums){
+    if(nums.size() == 0)return 0;
+
+    int n = 0;
+    T x = 0;
+    for(int i = 0; i<nums.size(); i++){
+        n++;
+        x += nums[i];
+    }
+
+    return x/n;
+}
 //void resetArr(string arr[], string arr2[], string arr3[]){
 
  //}

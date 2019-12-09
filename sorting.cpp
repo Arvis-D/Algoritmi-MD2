@@ -2,41 +2,48 @@
 #include <string>
 #include <iterator>
 #include <fstream>
+#include <ctime>
 #include "sorting.h"
 
 using namespace std;
 
+string test(int s, string arr1[], string arr2[], string arr3[], ifstream &file){
+    vector<int> dur1;
+    vector<int> dur2;
+    vector<int> dur3;
+    clock_t t1;
+    clock_t t2;
+    int avg1 = 0, avg2 = 0, avg3 = 0;
+    for(int i = 0; i < 2; i++){
+        setArr(file, arr1, arr2, arr3, s);
 
+        t1 = clock();
+        quickSort(arr1, 0, s-1);
+        cout << "asd";
+        t2 = clock();
+        dur1.push_back(t2-t1);
+        t1 = clock();
+        quickSort(arr2, 0, s-1);
+        t2 = clock();
+        dur2.push_back(t2-t1);
+        t1 = clock();
+        quickSort(arr3, 0, s-1);
+        t2 = clock();
+        dur3.push_back(t2-t1);
+    }
+    avg1 = getAvg(dur1);
+    avg2 = getAvg(dur2);
+    avg3 = getAvg(dur3);
+
+    return to_string(avg1) + "," + to_string(avg2) + "," + to_string(avg2);
+}
 
 int main(){
     int arrSize = 10000;
     string arrRandom[arrSize];
     string arrSorted[arrSize];
     string arrReversed[arrSize];
-    string x = "";
-//    ofstream file;
-    ifstream ifile;
-/*
-    for(int i = 0; i < arrSize; i++){
-        for(int j = 0; j<20; j++)
-            x += (rand()%25)+97;
-        arrRandom[i] = x;
-        arrSorted[i] = x;
-        x = "";
-    }
+    ifstream file ( "dati.csv" );
 
-    quickSort(arrSorted, 0, arrSize-1);
-    for(int i = 0; i<arrSize; i++)arrReversed[i] = arrSorted[i];
-    revArr(arrReversed, arrSize);
-*/
- //   file.open("dati.csv");
-//    file << "arrSorted,arrReverse,arrRandom" << endl;
- //   for(int i = 0; i<arrSize; i++)
-  //      file <<  arrSorted[i] << "," << arrReversed[i] << "," << arrRandom[i] << endl;
-
-
-ifstream file ( "dati2.csv" );
-    //read(file);
-setArr(file, arrSorted, arrReversed, arrRandom, arrSize);
-printArr(arrSorted, arrSize);
+    cout << test(arrSize, arrSorted, arrReversed, arrRandom, file);
 }
