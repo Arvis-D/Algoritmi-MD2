@@ -19,31 +19,35 @@ string test(int s, string arr1[], string arr2[], string arr3[], ifstream &file){
 
         t1 = clock();
         quickSort(arr1, 0, s-1);
-        cout << "asd";
         t2 = clock();
-        dur1.push_back(t2-t1);
+        cout << (t2-t1) << endl;
         t1 = clock();
         quickSort(arr2, 0, s-1);
         t2 = clock();
-        dur2.push_back(t2-t1);
+        cout << (t2-t1) << endl;
         t1 = clock();
+        printArr(arr3, s);
         quickSort(arr3, 0, s-1);
         t2 = clock();
-        dur3.push_back(t2-t1);
+        cout << (t2-t1) << endl;
     }
     avg1 = getAvg(dur1);
     avg2 = getAvg(dur2);
     avg3 = getAvg(dur3);
 
-    return to_string(avg1) + "," + to_string(avg2) + "," + to_string(avg2);
+    return to_string(avg1) + "," + to_string(avg2) + "," + to_string(avg3);
 }
 
 int main(){
-    int arrSize = 10000;
+    int arrSize = 2000;
     string arrRandom[arrSize];
     string arrSorted[arrSize];
     string arrReversed[arrSize];
     ifstream file ( "dati.csv" );
-
+    //setArr(file, arrSorted, arrReversed, arrRandom, arrSize);
+    //printArr(arrRandom, arrSize);
+    //printArr(arrSorted, arrSize);
+    //vector<int> asd = {3,4,5};
+    //cout << getAvg(asd);
     cout << test(arrSize, arrSorted, arrReversed, arrRandom, file);
 }

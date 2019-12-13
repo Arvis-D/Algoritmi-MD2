@@ -79,20 +79,23 @@ void setArr(ifstream &file, T arr1[], T arr2[], T arr3[], int s){
 
         lineCount++;
         getline(file, line);
-
         comma = 0;
         len = line.length();
         for(int i = 0; i<len; i++){
             if(line[i] == ','){
-                element = "";
                 comma++;
+
+                if(comma == 1)arr1[lineCount] = element;
+                if(comma == 2)arr2[lineCount] = element;
+                element = "";
+
                 continue;
             }
             element += line[i];
-
-            if(comma == 1)arr1[lineCount] = element;
-            if(comma == 2)arr2[lineCount] = element;
-            if(i == len - 1)arr3[lineCount] = element;
+            if(i == len-1){
+                arr3[lineCount] = element;
+                element = "";
+            }
         }
         if(lineCount == s-1)break;
     }
