@@ -14,32 +14,41 @@ void swaps(T &x,T &y){
 }
 
 template <class T>
-int partition (T arr[], int low, int high){
-    T pivot = arr[high];
-    int i = low - 1;
-    for (int j = low; j <= high - 1; j++){
-        if (arr[j] <= pivot){
-            i++;
-            swaps(arr[i], arr[j]);
-        }
+void heapify(T arr[], int n, int i)
+{
+    int largest = i;
+    int l = 2*i + 1;
+    int r = 2*i + 2;
+    if (l < n && arr[l] > arr[largest])
+        largest = l;
+    if (r < n && arr[r] > arr[largest])
+        largest = r;
+    if (largest != i)
+    {
+        swap(arr[i], arr[largest]);
+        heapify(arr, n, largest);
     }
-    swaps(arr[i+1], arr[high]);
-
-    return i + 1;
 }
 
 template <class T>
-void quickSort(T arr[], int low, int high){
-    if (low < high){
-        int pivot = partition(arr, low, high);
-        quickSort(arr, low, pivot - 1);
-        quickSort(arr, pivot + 1, high);
+void heapSort(T arr[], int n)
+{
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+    for (int i=n-1; i>=0; i--)
+    {
+        swaps(arr[0], arr[i]);
+        heapify(arr, i, 0);
     }
 }
 
 template <class T>
 void printArr(T arr[], int s){
     for(int i = 0; i < s; i++)cout << i << ". " << arr[i] << endl;
+}
+template <class T>
+void printVec(vector<T> *arr){
+    for(int i = 0; i < arr.size(); i++)cout << i << ". " << arr[i] << endl;
 }
 
 template<class T>
